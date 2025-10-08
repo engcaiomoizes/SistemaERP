@@ -1,10 +1,12 @@
-﻿namespace SistemaERP.Models
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.ComponentModel.DataAnnotations;
+
+namespace SistemaERP.Models
 {
     public class ProdutoViewModel
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public string Descricao { get; set; }
         public int CategoriaId { get; set; }
         public CategoriaViewModel Categoria { get; set; }
         public string CodigoBarras { get; set; }

@@ -75,5 +75,30 @@ namespace SistemaERP.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = baseUrl;
+                    var response = await client.DeleteAsync($"categoria/id:int?id={id}");
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return Json(new { success = true });
+                        //return RedirectToAction("Index");
+                    } else
+                    {
+                        ModelState.AddModelError(string.Empty, "Ocorreu um erro ao tentar excluir a Categoria.");
+                        return Json(new { success = false, message = "Ocorreu um erro ao tentar excluir a Categoria." });
+                    }
+                }
+            }
+
+            return Json(new { success = false, message = "Modelo inválido!" });
+        }
     }
 }

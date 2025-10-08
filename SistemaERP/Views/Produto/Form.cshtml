@@ -1,42 +1,54 @@
-﻿@page
-@model SistemaERP.Views.Produto.FormModel
+﻿@model SistemaERP.Models.ProdutoCategoriaRequestModel
+
 @{
+    ViewBag.Title = "Cadastro de Produto";
 }
 
 <div class="container">
     <h1>Cadastro de Produto</h1>
-    <form>
+    <form asp-action="Create" method="post">
         <div class="form-group mb-3">
-            <label for="nome">Nome:</label>
-            <input type="text" class="form-control" id="nome" />
+            <label for="Nome">Nome:</label>
+            <input type="text" class="form-control" id="Nome" name="Produto.Nome" />
         </div>
         <div class="form-group col-md-3 mb-3">
-            <label for="categoriaId">Categoria:</label>
-            <select class="form-control" id="categoriaId">
-                <option>Selecione...</option>
+            <label for="CategoriaId">Categoria:</label>
+            <select class="form-control" id="CategoriaId" name="Produto.CategoriaId">
+                @foreach (var item in Model.Categorias)
+                {
+                    <option value="@item.Id">@item.Nome</option>
+                }
             </select>
         </div>
         <div class="form-group col-md-3 mb-3">
-            <label for="codigoBarras">Código de barras:</label>
-            <input type="text" class="form-control" id="codigoBarras" maxlength="13" />
+            <label for="CodigoBarras">Código de barras:</label>
+            <input type="text" class="form-control" id="CodigoBarras" name="Produto.CodigoBarras" maxlength="13" />
         </div>
         <div class="form-group col-md-2 mb-3">
-            <label for="preco">Preço:</label>
+            <label for="Preco">Preço:</label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">R$</span>
                 </div>
-                <input type="text" class="form-control" id="preco" />
+                <input type="text" class="form-control" id="Preco" name="Produto.Preco" />
             </div>
         </div>
         <div class="form-group col-md-2 mb-3">
             <label for="embalagem">Embalagem:</label>
-            <input type="text" class="form-control" id="embalagem" />
+            <input type="text" class="form-control" id="Embalagem" name="Produto.Embalagem" />
         </div>
         <div class="form-check mb-3">
-            <input type="checkbox" id="controlarEstoque" class="form-check-input" />
-            <label class="form-check-label" for="controlarEstoque">Controlar estoque</label>
+            <input type="checkbox" id="ControlarEstoque" name="Produto.ControlarEstoque" class="form-check-input" />
+            <label class="form-check-label" for="ControlarEstoque">Controlar estoque</label>
         </div>
         <button type="submit" class="btn btn-primary">Cadastrar</button>
     </form>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $("#Preco").mask("#.##0,00", { reverse: true });
+        });
+    </script>
+}
