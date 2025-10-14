@@ -1,29 +1,30 @@
-﻿@page
-@model SistemaERP.Views.Usuario.FormModel
+﻿@model SistemaERP.Models.UsuarioRequestModel
+
 @{
+    ViewBag.Title = "Cadastro de Usuário";
 }
 
 <div class="container">
     <h1>Cadastro de Usuário</h1>
-    <form>
+    <form asp-action="Create" method="post">
         <div class="form-group mb-3">
             <label for="nome">Nome:</label>
-            <input type="text" class="form-control" id="nome" />
+            <input type="text" class="form-control" id="nome" name="Nome" required />
         </div>
         <div class="form-group mb-3">
             <label for="email">Email:</label>
-            <input type="email" class="form-control" id="email" />
+            <input type="email" class="form-control" id="email" name="Email" required />
         </div>
-        <div class="form-group mb-3">
+        <div class="form-group col-md-3 mb-3">
             <label for="senha">Senha:</label>
-            <input type="password" class="form-control" id="senha" />
+            <input type="password" class="form-control" id="senha" name="Senha" required />
         </div>
         <div class="form-group col-md-3 mb-3">
             <label for="role">Role:</label>
-            <select class="form-control" id="role">
+            <select class="form-control" id="role" name="Role" required>
                 <option>Selecione...</option>
-                <option>Administrador</option>
-                <option>Usuário</option>
+                <option value="Administrador">Administrador</option>
+                <option value="Usuário">Usuário</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Cadastrar</button>
