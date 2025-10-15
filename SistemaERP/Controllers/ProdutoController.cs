@@ -124,6 +124,36 @@ namespace SistemaERP.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> Estoque(int id, short quantidade)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = baseUrl;
+                    var estoque = new
+                    {
+                        Id = id,
+                        Quantidade = quantidade
+                    };
+                    var json = System.Text.Json.JsonSerializer.Serialize(estoque);
+                    var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                    var response = await client.PutAsync("estoque", content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("Index");
+                    } else
+                    {
+                        ModelState.AddModelError(string.Empty, "Ocorreu um erro ao tentar atualizar o Estoque.");
+                        return View();
+                    }
+                }
+            }
+            return View();
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             if (ModelState.IsValid)

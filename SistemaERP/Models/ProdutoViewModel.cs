@@ -15,5 +15,7 @@ namespace SistemaERP.Models
         public string Embalagem { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+
+        public EstoqueViewModel Estoque { get; set; }
     }
 }
